@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Market Overview</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --deep-navy: #213448;
+      --steel-blue: #547792;
+      --sky-blue: #94B4C1;
+      --lime-accent: #ECEFCA;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--deep-navy);
+      color: var(--lime-accent);
+      font-family: 'Roboto', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: linear-gradient(135deg, var(--steel-blue), var(--sky-blue));
+      margin: 2rem;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+      max-width: 800px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .ihsg {
+      background: var(--lime-accent);
+      color: var(--deep-navy);
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+    .ihsg h6 {
+      margin: 0;
+      font-size: 1rem;
+      text-transform: uppercase;
+      opacity: 0.8;
+      letter-spacing: 1px;
+    }
+    .ihsg .price {
+      margin: 0.5rem 0;
+      font-size: 2.8rem;
+      font-weight: bold;
+    }
+    .ihsg .meta {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.3rem;
+      font-weight: bold;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+    .ihsg .meta.up { color: #4caf50; }
+    .ihsg .meta.down { color: #f44336; }
+
+    .last-update {
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1rem 1.5rem;
+      border-left: 5px solid var(--sky-blue);
+      border-radius: 10px;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .section:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+    .section strong {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+      color: var(--lime-accent);
+    }
+    .section p {
+      margin: 0;
+      color: #f0f0f0;
+      line-height: 1.5;
+    }
+
+    .section a.button {
+      display: inline-block;
+      margin-top: 0.7rem;
+      padding: 0.4rem 1rem;
+      background: var(--lime-accent);
+      color: var(--deep-navy);
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+    .section a.button:hover {
+      background: #dce3b8;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #bbb;
+      text-align: center;
+      border-top: 1px solid #445566;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        margin: 1rem;
+        padding: 1rem;
+      }
+      .ihsg .price {
+        font-size: 2.2rem;
+      }
+      .section {
+        padding: 0.8rem 1rem;
+      }
+      .section strong {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        margin: 3rem auto 0.5rem;
+        padding: 0.5rem;
+      }
+      .ihsg .price {
+        font-size: 1.8rem;
+      }
+      .ihsg h6 {
+        font-size: 0.9rem;
+      }
+      .ihsg .meta {
+        font-size: 1.1rem;
+      }
+      .section {
+        padding: 0.5rem 0.8rem;
+      }
+      .section strong {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="ihsg">
+      <h6>IHSG Pricing</h6>
+      <div class="price">{{ ihsg_price }}</div>
+      <div class="meta {{ 'up' if ihsg_up else 'down' }}">
+        <i class="fa-solid {{ 'fa-arrow-up' if ihsg_up else 'fa-arrow-down' }}"></i>
+        {{ ihsg_change }} {{ ihsg_pct }}
+      </div>
+    </div>
+
+    <div class="last-update">
+      Last update: {{ last_update }}
+    </div>
+
+    <div class="section">
+      <strong>Headline News @ bisnis.com:</strong>
+      <p>{{ berita1 }}</p>
+      <a class="button" href="https://market.bisnis.com" target="_blank">Lihat Berita Lengkap</a>
+    </div>
+    <div class="section">
+      <strong>Headline News @ kompas.com:</strong>
+      <p>{{ berita2 }}</p>
+      <a class="button" href="https://money.kompas.com/ekbis" target="_blank">Lihat Berita Lengkap</a>
+    </div>
+    <div class="section">
+      <strong>Headline News @ kontan.com:</strong>
+      <p>{{ berita3 }}</p>
+      <a class="button" href="https://investasi.kontan.co.id/" target="_blank">Lihat Berita Lengkap</a>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Ariyan Putra H.
+  </footer>
+<script>
+    const serverLogs = `{{ log_info | safe }}`;
+    console.log("=== Server Logs ===\n" + serverLogs);
+</script>
+</body>
+
+</html>
